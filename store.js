@@ -1,0 +1,224 @@
+
+///////////////////////////////////////////
+// -----------------------------
+// STORES (EXACT SAME)
+// -----------------------------
+
+const stores_GF = {
+    "Zara": [1493, 425],
+    "Levis": [1043, 522],
+    "Sephora": [916, 566],
+    "Lifestyle": [814, 690],
+    "Uniqlo": [580, 650],
+    "Jack & Jones": [416, 616],
+    "Vero Moda": [520, 576],
+    "M&S": [303, 787],
+    "Entrance": [724, 198],
+    "poetry Love & Cheesecake": [257, 442],
+    "SELECTED HOMME": [191, 272],
+    "Only": [267, 238],
+    "fossil": [347, 271],
+    "Nykaa": [494, 230],
+    "Ethos Watch": [615, 248],
+    "Sunglasess Hut": [441, 293],
+    "CK": [849, 199],
+    "Swarovski": [941, 200],
+    "Forever New": [1083, 171],
+    "The Body Shop": [1134, 91],
+    "Nail Spa": [1125, 413],
+    "Washroom & Drinking Water GF": [1217, 646],
+
+    "Esc1": [317, 440],
+    "Esc2": [1141, 277],
+
+    "P1": [198,342],
+    "P2": [411,333],
+    "P3": [762,297],
+    "P4": [1016,229],
+    "P5": [1192,168],
+    "P6": [1226,330],
+    "P7": [1023,393],
+    "P8": [764,461],
+    "P9": [487,497],
+    "P10": [212,515]
+};
+
+
+const stores_F1 = {
+    "Metro Shoes": [144, 268],
+    "Regal Shoes": [303, 250],
+    "Asics": [508, 234],
+    "The Souled Store": [572, 273],
+    "Adidas": [865, 207],
+    "Komponreo": [985, 167],
+    "Van Hausen": [1160, 113],
+    "The Bombay Shirt Company": [1518, 110],
+    "ColorPlus": [1697, 258],
+    "Jockey": [1691, 385],
+    "GAP": [1545, 569],
+    "BagLine": [1461, 481],
+    "Fizzy goblet": [1458, 420],
+    "Mokobara": [1437, 319],
+    "puma": [1352, 412],
+    "AllenSolly": [1139, 496],
+    "US Polo Assn": [979, 522],
+    "Louis Philippe": [809, 540],
+    "LifeStyle ": [720, 747],
+    "Nautica": [586,551],
+    "Hide Design": [489,576],
+    "Tanishq": [397,715],
+    "Croma": [209,717],
+    "theobroma": [187,442],
+    "Washroom & Drinking Water F1": [1192,659],
+
+    "Esc1": [317, 440],
+    "Esc2": [1141, 277],
+
+    "P1": [198,342],
+    "P2": [411,333],
+    "P3": [762,297],
+    "P4": [1016,229],
+    "P5": [1192,168],
+    "P6": [1338,213],
+    "P7": [1608,188],
+    "P8": [1643,437],
+    "P9": [1518,445],
+    "P10": [1483,279],
+    "P11": [1360,292],
+    "P12": [1226,330],
+    "P13": [1023,393],
+    "P14": [764,461],
+    "P15": [487,497],
+    "P16": [212,515]
+};
+
+
+const stores_F2 = {
+    "Fab": [228,221],
+    "samsonite": [311,274],
+    "BIBA": [489,257],
+    "Cotton World": [600,201],
+    "StarBucks": [758,248],
+    "Global Desi": [867,221],
+    "House of Felt": [968,125],
+    "AND": [1097,135],
+    "Kitchen Garden": [1363,158],
+    "peora": [1495,149],
+    "Tasva": [1563,128],
+    "Jaypore": [1704,168],
+    "Meena Bazaar": [1703,282],
+    "Raymond": [1715,360],
+    "Good Flippin Burgers": [1600,543],
+    "Copper Chimney": [1529,618],
+    "Burma Burma": [1447,508],
+    "Coco caffe": [1345,433],
+    "Envi Salon": [1231,553],
+    "Enamor": [1066,461],
+    "Mother Care": [1011,536],
+    "Chique": [790,498],
+    "Lifestyle": [707,718],
+    "Nalli": [400,756],
+    "nature Basket": [264,723],
+    "Chaayos": [259,419],
+    "Washroom & Drinking Water F2": [1228,666],
+
+    "P1": [198,342],
+    "P2": [411,333],
+    "P3": [762,297],
+    "P4": [1016,229],
+    "P5": [1192,168],
+    "P6": [1338,213],
+    "P7": [1608,188],
+    "P8": [1643,437],
+    "P9": [1518,445],
+    "P10": [1483,279],
+    "P11": [1360,292],
+    "P12": [1226,330],
+    "P13": [1023,393],
+    "P14": [764,461],
+    "P15": [487,497],
+    "P16": [212,515],
+
+    "Esc1": [317, 440],
+    "Esc2": [1141, 277]
+};
+
+
+const stores_F3 = {
+    "play N learn ": [242,394],
+    "Olive Bistor": [971,140],
+    "Third Wave Coffee ": [1342,299],
+    "pvr Inox": [1537,471],
+    "Soical": [1220,513],
+    "farzi Coffee": [1100,614],
+    "pizza Express": [977,675],
+    "Asia Kitchen": [860,603],
+    "Maharaja bhoj": [773,728],
+    "Burger King": [651,650],
+    "HAS juice": [656,729],
+    "Dominos": [649,789],
+    "MOD": [596,897],
+    "kailash parbat": [482,940],
+    "KFC": [373,965],
+    "MCD": [257,964],
+    "Subway": [261,890],
+    "Sbarro": [253,831],
+    "Sandwizza": [238,752],
+    "Nom Nom Express": [232,683],
+    "WOW momos": [228,606],
+    "Washroom & Drinking Water F3": [967,781],
+
+    "P1": [355,359],
+    "P2": [541,335],
+    "P3": [769,295],
+    "P4": [993,245],
+    "P5": [1230,169],
+    "P6": [1276,335],
+    "P7": [1207,442],
+    "P8": [1048,472],
+    "P9": [842,514],
+    "P10": [676,544],
+    "P11": [517,566],
+    "P12": [572,729],
+    "P13": [535,852],
+    "P14": [427,883],
+    "P15": [328,820],
+    "P16": [310,641],
+
+    "Esc1": [337,440],
+    "Esc2": [1141,277]
+};
+
+
+function cleanStores(obj, floor) {
+    return Object.keys(obj)
+        .filter(name => !name.startsWith("P") && !name.startsWith("Esc"))
+        .map(name => ({
+            name,
+            floor,
+            logo: "logos/default.png"
+        }));
+}
+
+
+// -----------------------------
+// COMBINED STORE LIST
+// -----------------------------
+const stores = [
+    ...cleanStores(stores_GF, "GF"),
+    ...cleanStores(stores_F1, "F1"),
+    ...cleanStores(stores_F2, "F2"),
+    ...cleanStores(stores_F3, "F3")
+];
+
+
+// -----------------------------
+// EXPORT
+// -----------------------------
+export {
+    stores,
+    stores_GF,
+    stores_F1,
+    stores_F2,
+    stores_F3
+};

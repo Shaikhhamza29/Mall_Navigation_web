@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Store Details</title>
+<link rel="stylesheet" href="stores/style.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+    <button class="back-btn"  onclick="backToMall()">← Back</button>
+    <h1>Store Details</h1>
+</div>
+
+<!-- MAIN -->
+<div class="container">
+
+    <h2>All Stores</h2>
+
+    <!-- SEARCH -->
+    <div class="search-box">
+        <input id="searchInput" placeholder="Search store..." />
+        <button onclick="searchStore()">🔍</button>
+
+        <ul id="suggestions"></ul>
+    </div>
+
+    <!-- STORE GRID -->
+    <div id="storeGrid" class="grid"></div>
+
+</div>
+
+<script type="module" src="storeUI.js"></script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+start chrome --kiosk "C:\HAMZA\Projects\Mall_Store_navigation\index.html"

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mall Navigator</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- HEADER -->
+
+
+<div class="navbar">
+
+    <!-- LEFT -->
+    <div class="nav-left">
+        <button class="back-btn">←</button>
+
+        <div class="brand">
+            <span class="logo">✦</span>
+            <div>
+                <div class="brand-name">OBEROI MALL</div>
+                <div class="brand-sub">WORLD CLASS EXPERIENCE</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CENTER -->
+    <div class="nav-center">
+        <div class="center-pill" id="floorName">Ground Floor</div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="nav-right">
+
+        <div class="pill time-pill">
+            <div>
+                <span id="time">04:55 PM</span>
+                <small id="date">Wednesday, 24 May 2025</small>
+            </div>
+        </div>
+
+        <div class="pill weather-pill">
+            ☀ <span>25°C</span>
+        </div>
+
+        <div class="pill nav-action">🏠 Home</div>
+        <div class="pill nav-action" onclick="goToStores()">🔍 Stores</div>
+
+        <div class="pill small-pill">🌐 EN</div>
+
+    </div>
+
+</div>
+
+    <!-- MAP AREA -->
+    <div class="map-area">
+
+        <!-- CANVAS -->
+        <canvas id="mapCanvas"></canvas>
+
+        <!-- CONTROL BOX -->
+        <div class="control-box glass">
+
+            <!-- LEFT VISUAL TRACK -->
+                <div class="route-visual">
+                    <div class="dot-start"></div>
+                    <div class="line"></div>
+                    <div class="dot-end"></div>
+                </div>
+            <!-- RIGHT SIDE (YOUR ORIGINAL CODE) -->
+            <div class="route-fields">
+
+                <div class="input-group">
+                    <label>FROM</label>
+                    <input id="sourceInput" list="stores" placeholder="You Are Here">
+                </div>
+
+                <div class="input-group">
+                    <label>TO</label>
+                    <input id="destInput" list="stores" placeholder="Destination">
+                </div>
+
+                <datalist id="stores"></datalist>
+
+                <button class="show-btn" onclick="triggerRoute()">
+                    📍 Show Route
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- FLOOR PANEL -->
+        <div class="kiosk-panel">
+
+            <button class="nav-btn-top" onclick="nextFloor()">+</button>
+
+            <button class="floor-btn" onclick="setFloor('F3')">
+                <span>F3</span>
+                <small>Third Floor</small>
+            </button>
+
+            <button class="floor-btn" onclick="setFloor('F2')">
+                <span>F2</span>
+                <small>Second Floor</small>
+            </button>
+
+            <button class="floor-btn" onclick="setFloor('F1')">
+                <span>F1</span>
+                <small>First Floor</small>
+            </button>
+
+            <button class="floor-btn active-floor" onclick="setFloor('GF')">
+                <span>GF</span>
+                <small>Ground Floor</small>
+            </button>
+
+            <button class="nav-btn-bottom" onclick="prevFloor()">−</button>
+
+        </div>
+
+
+
+        <!-- ROUTE CARD -->
+        <div id="card" class="route-card">
+
+            <!-- CLOSE -->
+            <button class="close-btn" onclick="hideCard()">✕</button>
+
+            <!-- FROM / TO -->
+            <div class="route-head">
+
+                <div class="route-item">
+                    <span class="dot blue"></span>
+                    <div>
+                        <small>FROM</small>
+                        <p id="title">Sephora</p>
+                    </div>
+                </div>
+
+                <div class="route-line"></div>
+
+                <div class="route-item">
+                    <span class="dot yellow"></span>
+                    <div>
+                        <small>TO</small>
+                        <p id="floorInfo">Destination</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- SUMMARY BOX -->
+            <div class="route-box">
+                <div class="walk">
+                    <span>🚶</span>
+                    <div>
+                        <b id="timeText">2 min</b>
+                        <small>Walk Time</small>
+                    </div>
+                </div>
+
+                <div class="distance">
+                    <b id="distanceText">120 m</b>
+                    <small>Distance</small>
+                </div>
+            </div>
+            <div id="floorChangeBox" class="floor-change-inline">
+                <div class="fc-icon">⬆</div>
+                    <div>
+                        <div class="fc-title">Change Floor</div>
+                        <div id="floorPathText" class="fc-path"></div>
+                    </div>
+            </div>
+
+            <!-- BUTTON -->
+            <button class="start-btn">✈ START NAVIGATION</button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
