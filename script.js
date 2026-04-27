@@ -957,16 +957,17 @@ function triggerRoute() {
 
     const floorBox = document.getElementById("floorChangeBox");
 
-    if (sourceFloor !== destFloor) {
+// 🔥 SHOW ONLY WHEN USER IS NOT ON DEST FLOOR
+if (current_floor !== destFloor) {
 
-        const floorPath = getFloorPath(sourceFloor, destFloor);
-        document.getElementById("floorPathText").innerText = floorPath;
+    const floorPath = getFloorPath(current_floor, destFloor);
 
-        floorBox.classList.add("active");
+    document.getElementById("floorPathText").innerText = floorPath;
+    floorBox.classList.add("active");
 
-    } else {
-        floorBox.classList.remove("active");
-    }
+} else {
+    floorBox.classList.remove("active"); // ✅ hide when on same floor
+}
 
     // DISTANCE
     let totalDistance = 5;
