@@ -63,7 +63,7 @@
 
         <!-- CANVAS -->
         <canvas id="mapCanvas"></canvas>
-
+        <div class="map-overlay"></div>
         <!-- CONTROL BOX -->
         <div class="control-box glass">
 
@@ -95,7 +95,19 @@
             </div>
 
         </div>
+        <!-- CATEGORY BUTTONS -->
+        <div class="category-bar">
 
+            <div class="cat-card active" onclick="showRestrooms()">
+                <div class="icon">
+<svg viewBox="0 0 24 24" width="26" height="26">
+  <path fill="white" d="M7 2a2 2 0 110 4 2 2 0 010-4zm10 0a2 2 0 110 4 2 2 0 010-4zM6 22v-7H4l2-6h2l2 6H8v7H6zm10 0v-7h-2l2-6h2l2 6h-2v7h-2z"/>
+</svg>
+</div>
+                <span>Restrooms</span>
+            </div>
+
+        </div>
         <!-- FLOOR PANEL -->
         <div class="kiosk-panel">
 
@@ -167,7 +179,7 @@
                 </div>
 
                 <div class="distance">
-                    <b id="distanceText">120 m</b>
+                    <b id="distanceText">10 m</b>
                     <small>Distance</small>
                 </div>
             </div>
@@ -183,7 +195,7 @@
             <button class="start-btn">✈ START NAVIGATION</button>
 
         </div>
-
+        
     </div>
 
 </div>

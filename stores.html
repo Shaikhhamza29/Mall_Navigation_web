@@ -9,7 +9,7 @@
 
 <!-- HEADER -->
 <div class="header">
-    <button class="back-btn"  onclick="backToMall()">← Back</button>
+    <button class="back-btn" id="backBtn" onclick="goToStores()" >← Back</button>
     <h1>Store Details</h1>
 </div>
 
@@ -21,16 +21,48 @@
     <!-- SEARCH -->
     <div class="search-box">
         <input id="searchInput" placeholder="Search store..." />
-        <button onclick="searchStore()">🔍</button>
-
+        <!-- ❌ removed onclick (not needed) -->
         <ul id="suggestions"></ul>
     </div>
 
     <!-- STORE GRID -->
     <div id="storeGrid" class="grid"></div>
 
+    <div id="storePopup" class="popup hidden">
+
+    <div class="popup-card">
+
+    <button class="close-btn" onclick="closePopup()">✕</button>
+
+    <img id="popupImg" class="popup-logo" />
+
+    <h2 id="popupName"></h2>
+
+    <p id="popupFloor" class="popup-floor"></p>
+
+    <div class="divider"></div>
+
+    <div class="popup-section">
+        <p id="popupDesc" class="popup-desc"></p>
+    </div>
+
+    <div class="popup-section highlight">
+        <p id="popupOffer"></p>
+    </div>
+
+    <div class="popup-section">
+        <p id="popupTiming"></p>
+    </div>
+
+</div>
 </div>
 
-<script type="module" src="storeUI.js"></script>
+</div>
+
+
+
+<!-- JS -->
+<script src="stores/storeUI.js"></script>
+
 </body>
 </html>

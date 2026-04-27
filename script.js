@@ -25,7 +25,7 @@ const stores_GF = {
     "Forever New": [1083, 171],
     "The Body Shop": [1134, 91],
     "Nail Spa": [1125, 413],
-    "Washroom & Drinking Water GF": [1217, 646],
+    "Washroom": [1217, 646],
 
     "Esc1": [317, 440],
     "Esc2": [1141, 277],
@@ -68,7 +68,7 @@ const stores_F1 = {
     "Tanishq": [397,715],
     "Croma": [209,717],
     "theobroma": [187,442],
-    "Washroom & Drinking Water F1": [1192,659],
+    "Washroom": [1192,659],
 
     "Esc1": [317, 440],
     "Esc2": [1141, 277],
@@ -119,7 +119,7 @@ const stores_F2 = {
     "Nalli": [400,756],
     "nature Basket": [264,723],
     "Chaayos": [259,419],
-    "Washroom & Drinking Water F2": [1228,666],
+    "Washroom": [1228,666],
 
     "P1": [198,342],
     "P2": [411,333],
@@ -165,7 +165,7 @@ const stores_F3 = {
     "Sandwizza": [238,752],
     "Nom Nom Express": [232,683],
     "WOW momos": [228,606],
-    "Washroom & Drinking Water F3": [967,781],
+    "Washroom": [967,781],
 
     "P1": [355,359],
     "P2": [541,335],
@@ -283,7 +283,7 @@ let graph_F3 = {
 let animationProgress = 0;
 let animationSpeed = 2; // pixels per frame
 let animating = false;
-
+let restroomFloor = null;
 //////////////////////////////////////////////
 
 
@@ -561,7 +561,7 @@ canvas.addEventListener("click", function (event) {
     last_dest = null;
 
     // 🔥 RESET UI
-    document.getElementById("card").classList.remove("active");
+    // document.getElementById("card").classList.remove("active");
     document.getElementById("floorChangeBox").classList.remove("active");
 
     // redraw map
@@ -691,32 +691,11 @@ if (bestPath) {
     current_floor = sf;
     updateFloor();
 
+    return bestPath.sourcePath; // 🔥 ADD THIS
 } else {
     console.log("No valid path found");
 } // choose Esc1 (you can improve later)
 
-    // -------- SOURCE FLOOR --------
-    let data_s = floors[sf];
-
-    let start = nearest_node(data_s["stores"][s], data_s["stores"]);
-
-    let path1 = astar(data_s["graph"], start, esc, data_s["stores"]);
-
-    last_paths[sf] = path1;
-
-    // -------- DEST FLOOR --------
-    let data_d = floors[df];
-
-    let end = nearest_node(data_d["stores"][d], data_d["stores"]);
-
-    let path2 = astar(data_d["graph"], esc, end, data_d["stores"]);
-
-    last_paths[df] = path2;
-
-    // stay on source first
-    current_floor = sf;
-
-    updateFloor();
 }
 ////////////////////////////////////////////////////////////////////
 function drawMap() {
@@ -783,6 +762,36 @@ function drawOverlay() {
         ctx.arc(x * scale_x, y * scale_y, 10, 0, Math.PI * 2);
         ctx.fill();
     }
+    if (restroomFloor === current_floor) {
+
+    const storeData = floors[current_floor]["stores"];
+
+    const restrooms = Object.keys(storeData).filter(name =>
+        name.toLowerCase().includes("washroom")
+    );
+
+    restrooms.forEach(name => {
+
+        const [x, y] = storeData[name];
+
+        ctx.beginPath();
+        ctx.arc(x * scale_x, y * scale_y, 12, 0, Math.PI * 2);
+
+        ctx.fillStyle = "#22c55e";
+        ctx.shadowColor = "#22c55e";
+        ctx.shadowBlur = 15;
+
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        ctx.fillStyle = "#fff";
+        ctx.font = "12px Arial";
+        ctx.fillText("🚻", x * scale_x - 6, y * scale_y + 4);
+    });
+
+    return; // 🔥 stop other drawing
+}
+    drawMarkers(ctx);
 }
 ////////////////////////////////////////////////////////////////
 
@@ -918,7 +927,7 @@ function triggerRoute() {
 
     const s = document.getElementById("sourceInput").value.trim();
     const d = document.getElementById("destInput").value.trim();
-
+    restroomFloor = null;
     if (!s || !d) {
         alert("Select both source and destination");
         return;
@@ -929,62 +938,52 @@ function triggerRoute() {
         return;
     }
 
-    // store values
     last_source = s;
+    
     last_dest = d;
 
-    // 🔥 DRAW ROUTE
-    find_and_draw();
+    // 🔥 FIX
+    const path = find_and_draw();
 
-    // 🔥 UPDATE CARD TEXT
     document.getElementById("title").innerText = s;
     document.getElementById("floorInfo").innerText = d;
 
     const card = document.getElementById("card");
     card.classList.add("active");
 
-    // =========================================
-    // 🔥 FLOOR CHANGE UI (MAIN FIX)
-    // =========================================
-
+    // FLOOR CHANGE
     const sourceFloor = get_floor(s);
     const destFloor = get_floor(d);
 
-        const floorBox = document.getElementById("floorChangeBox");
+    const floorBox = document.getElementById("floorChangeBox");
 
-        if (sourceFloor !== destFloor) {
+    if (sourceFloor !== destFloor) {
 
-            const floorPath = getFloorPath(sourceFloor, destFloor);
+        const floorPath = getFloorPath(sourceFloor, destFloor);
+        document.getElementById("floorPathText").innerText = floorPath;
 
-            document.getElementById("floorPathText").innerText = floorPath;
+        floorBox.classList.add("active");
 
-            floorBox.classList.add("active");
+    } else {
+        floorBox.classList.remove("active");
+    }
 
-        } else {
-            floorBox.classList.remove("active");
+    // DISTANCE
+    let totalDistance = 5;
+
+    const storeData = floors[sourceFloor]["stores"];
+
+    if (path && path.length > 1) {
+        for (let i = 1; i < path.length; i++) {
+            const a = storeData[path[i - 1]];
+            const b = storeData[path[i]];
+            totalDistance += distance(a, b);
         }
-
-    // =========================================
-    // 🔥 NORMAL ROUTE CALCULATION
-    // =========================================
-
-    let totalDistance = 0;
-
-    for (let i = 1; i < path.length; i++) {
-        const prev = path[i - 1];
-        const curr = path[i];
-
-        const dist = Math.round(
-            Math.hypot(curr.x - prev.x, curr.y - prev.y)
-        );
-
-        totalDistance += dist;
     }
 
     const distanceText = Math.round(totalDistance);
     const timeText = Math.max(1, Math.round(distanceText / 60));
 
-    // 🔥 UPDATE YOUR CURRENT UI (NOT route-summary anymore)
     document.getElementById("timeText").innerText = `${timeText} min`;
     document.getElementById("distanceText").innerText = `${distanceText} m`;
 }
@@ -995,9 +994,9 @@ function showCard() {
     document.getElementById("card").style.display = "block";
 }
 
-function hideCard() {
-    document.getElementById("card").style.display = "none";
-}
+// function hideCard() {
+//     document.getElementById("card").style.display = "none";
+// }
 
 
 //////////////////////////////////////////////
@@ -1019,10 +1018,6 @@ window.addEventListener("DOMContentLoaded", () => {
     updateFloor();
 });
 
-function hideCard() {
-    document.getElementById("card").classList.remove("active");
-}
-
 
 
 
@@ -1032,7 +1027,7 @@ function goToStores() {
 
 function drawArrow(ctx, from, to) {
 
-    const headlen = 15; // arrow size
+    const headlen = 15;
 
     const dx = to[0] - from[0];
     const dy = to[1] - from[1];
@@ -1045,15 +1040,26 @@ function drawArrow(ctx, from, to) {
     const x2 = to[0] * scale_x;
     const y2 = to[1] * scale_y;
 
-    // MAIN LINE
+    // =========================
+    // 🔥 DOTTED LINE
+    // =========================
     ctx.beginPath();
+    ctx.setLineDash([8, 6]); // dash pattern (length, gap)
+
     ctx.moveTo(x1, y1);
     ctx.lineTo(x2, y2);
+
     ctx.strokeStyle = "#3b82f6";
-    ctx.lineWidth = 5;
+    ctx.lineWidth = 2;
+    ctx.lineCap = "round";
+
     ctx.stroke();
 
-    // ARROW HEAD
+    ctx.setLineDash([]); // reset (VERY IMPORTANT)
+
+    // =========================
+    // 🔥 ARROW HEAD
+    // =========================
     ctx.beginPath();
     ctx.moveTo(x2, y2);
     ctx.lineTo(
@@ -1069,3 +1075,104 @@ function drawArrow(ctx, from, to) {
     ctx.fillStyle = "#3b82f6";
     ctx.fill();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function drawMarkers(ctx) {
+
+    if (!last_source || !last_dest) return;
+
+    const sf = get_floor(last_source);
+    const df = get_floor(last_dest);
+
+    const store_s = floors[sf]["stores"][last_source];
+    const store_d = floors[df]["stores"][last_dest];
+
+    // Only draw if on current floor
+    if (current_floor === sf) {
+        drawStart(ctx, store_s);
+    }
+
+    if (current_floor === df) {
+        drawEnd(ctx, store_d);
+    }
+}
+function drawStart(ctx, pos) {
+
+    const x = pos[0] * scale_x;
+    const y = pos[1] * scale_y;
+
+    ctx.beginPath();
+    ctx.arc(x, y, 10, 0, Math.PI * 2);
+
+    ctx.fillStyle = "#3b82f6";
+
+    ctx.shadowColor = "#3b82f6";
+    ctx.shadowBlur = 20;
+
+    ctx.fill();
+    ctx.shadowBlur = 0;
+
+    // inner white dot
+    ctx.beginPath();
+    ctx.arc(x, y, 4, 0, Math.PI * 2);
+    ctx.fillStyle = "#ffffff";
+    ctx.fill();
+}
+let pulseRadius = 0;
+
+function drawEnd(ctx, pos) {
+
+    const x = pos[0] * scale_x;
+    const y = pos[1] * scale_y;
+
+    // center dot
+    ctx.beginPath();
+    ctx.arc(x, y, 8, 0, Math.PI * 2);
+    ctx.fillStyle = "#ef4444";
+    ctx.fill();
+
+    // pulse ring
+    ctx.beginPath();
+    ctx.arc(x, y, 12 + pulseRadius, 0, Math.PI * 2);
+
+    ctx.strokeStyle = "rgba(239,68,68,0.5)";
+    ctx.lineWidth = 3;
+    ctx.stroke();
+}
+
+
+
+
+
+
+
+
+
+function showRestrooms() {
+
+    restroomFloor = current_floor; // 🔥 store floor
+
+    // clear route
+    last_paths = {
+        "GF": [],
+        "F1": [],
+        "F2": [],
+        "F3": []
+    };
+
+    updateFloor();
+}
+

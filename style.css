@@ -21,12 +21,34 @@
         height: 100vh;
         position: relative;
     }
-#mapCanvas {
+    #mapCanvas {
+        position: absolute;
+        z-index: 1;
+    }
+
+.map-overlay {
     position: absolute;
     top: 0;
     left: 0;
+    right: 0;
+    bottom: 0;
+
+    pointer-events: none; /* 🔥 don't block clicks */
+
     z-index: 1;
+
+    background: radial-gradient(
+        circle at center,
+        rgba(0,0,0,0) 40%,
+        rgba(0,0,0,0.2) 50%,
+        rgba(0,0,0,0.3) 100%
+    );
 }
+
+
+
+
+
 
 .control-box,
 .kiosk-panel,
@@ -215,7 +237,7 @@
     MAP AREA (FIXED)
     ================================ */
     .map-area {
-        position: absolute;
+        position: relative;
         top: 90px;
         left: 0;
 
@@ -425,7 +447,7 @@
 
     background: linear-gradient(
         180deg,
-        #2f6bff,
+        #000000,
         #003ac0
     );
 
@@ -523,6 +545,7 @@
     border-radius: 24px;
 
     border: 1px solid rgba(255,255,255,0.06);
+    
 
     background: linear-gradient(
         145deg,
@@ -570,8 +593,8 @@
 .floor-btn.active-floor {
     background: linear-gradient(
         145deg,
-        #2b6cff,
-        #001a66
+        #000000,
+        #1c44bd
     );
 
     border: 1px solid rgba(120,180,255,0.9);
@@ -764,6 +787,8 @@
     width: 14px;
     height: 14px;
     border-radius: 50%;
+    position: relative;
+    top: 5px;
 }
 
 .blue {
@@ -774,6 +799,18 @@
 .yellow {
     background: #facc15;
     box-shadow: 0 0 10px #facc15;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.2); }
+}
+
+.yellow {
+    animation: pulse 1s infinite alternate;
+}
+.blue{
+    animation: pulse 1s infinite alternate;
 }
 
 /* LINE */
@@ -895,4 +932,73 @@
 .fc-inline-path {
     font-size: 13px;
     font-weight: 600;
+}
+
+
+
+
+
+
+
+.category-bar {
+    position: absolute;
+    bottom: 25px;
+    left: 10%;
+    transform: translateX(-50%);
+
+    z-index: 9999;
+}.cat-card {
+    width: 140px;
+    height: 75px;
+    
+    border-radius: 20px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 6px;
+
+    cursor: pointer;
+    color: white;
+
+    background: linear-gradient(
+        180deg,
+        #000000,
+        #003ac0
+    );
+
+    box-shadow:
+        0 10px 30px rgba(0,80,255,0.7),
+        0 0 25px rgba(0,80,255,0.5),
+        inset 0 1px 0 rgba(255,255,255,0.4);
+
+    transition: 0.25s;
+}.cat-card .icon {
+    font-size: 24px;
+}
+
+.cat-card span {
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+.icon svg {
+    width: 26px;
+    height: 26px;
+
+    fill: white;
+
+    /* 🔥 glow effect */
+    filter: drop-shadow(0 0 6px rgba(0,80,255,0.6));
+
+    transition: 0.3s;
+}
+.cat-card:hover .icon svg {
+    transform: scale(1.2);
+
+    filter:
+        drop-shadow(0 0 10px rgba(0,80,255,0.9))
+        drop-shadow(0 0 20px rgba(0,80,255,0.7));
 }
